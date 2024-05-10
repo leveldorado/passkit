@@ -29,6 +29,10 @@ type SigningInformation struct {
 	privateKey      interface{}
 }
 
+func NewSigningInfo(signingCert *x509.Certificate, signingPrivate interface{}, appleWWDRCACert *x509.Certificate) *SigningInformation {
+	return &SigningInformation{signingCert: signingCert, appleWWDRCACert: appleWWDRCACert, privateKey: signingPrivate}
+}
+
 func LoadSigningInformationFromFiles(pkcs12KeyStoreFilePath, keyStorePassword, appleWWDRCAFilePath string) (*SigningInformation, error) {
 	p12, err := os.ReadFile(pkcs12KeyStoreFilePath)
 	if err != nil {
